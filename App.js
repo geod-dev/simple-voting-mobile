@@ -31,12 +31,12 @@ export default function App() {
 	return (
 		<View style={styles.container} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
 			<StatusBar style="auto"/>
-			{polls ? polls.map(poll => (
+			{polls ? (
 				<>
-					<Poll poll={poll} key={poll.id}/>
+					{polls.map(poll => <Poll poll={poll} key={poll.id}/>)}
 					<NewPollButton />
 				</>
-			)) : <Text>Loading</Text>}
+			) : <Text>Loading</Text>}
 		</View>
 	);
 }
