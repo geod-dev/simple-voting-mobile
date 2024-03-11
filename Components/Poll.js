@@ -1,4 +1,4 @@
-import {Button, StyleSheet, Text, View} from "react-native";
+import {ActivityIndicator, Button, StyleSheet, Text, View} from "react-native";
 import {Colors} from "../Utils/Colors";
 import {useEffect, useState} from "react";
 import {Storage} from "../Utils/Storage";
@@ -23,8 +23,8 @@ const Poll = ({poll}) => {
 				}
 			})
 			if (res.ok) {
-				await Storage.set("poll-" + poll.id, index.toString())
 				setVote(index)
+				await Storage.set("poll-" + poll.id, index.toString())
 			}
 		} catch (e) {
 			console.log(e)
@@ -39,7 +39,9 @@ const Poll = ({poll}) => {
 	return (
 		<View style={styles.questionContainer}>
 			<Text style={styles.question}>{poll.question}</Text>
-			{!isLoading && vote !== undefined && poll.options.map((option, i) => vote ? (
+			{isLoading ? (
+				<ActivityIndicator style={{marginVertical: 10}} color={Colors.primary} />
+			) : vote !== undefined && poll.options.map((option, i) => vote ? (
 				<View key={i} style={{...styles.vote, ...(i === vote ? styles.voted : styles.unvoted)}}>
 					<Text>{option}</Text>
 					<Text>{poll.votes[i]}</Text>
