@@ -8,7 +8,7 @@ const Poll = ({poll}) => {
 	const [vote, setVote] = useState()
 	const [isLoading, setIsLoading] = useState(false)
 
-	const checkVote = async () => setVote(await Storage.get("poll-" + poll.id))
+	const checkVote = async () => setVote(Number(await Storage.get("poll-" + poll.id)))
 
 	const addVote = async (index) => {
 		setIsLoading(true)
